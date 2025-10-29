@@ -18,12 +18,8 @@
   body{font-family:'Inter',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
   a{color:inherit}
 
-  header.hero{
-    background:linear-gradient(135deg,var(--brand-1),var(--brand-2));
-    color:#fff;text-align:center;padding:92px 20px 76px;position:relative;overflow:hidden
-  }
-  header.hero:before{content:"";position:absolute;inset:0;opacity:.25;
-    background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><circle cx="8" cy="8" r="2" fill="white" opacity=".35"/></svg>')}
+  header.hero{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));color:#fff;text-align:center;padding:92px 20px 76px;position:relative;overflow:hidden}
+  header.hero:before{content:"";position:absolute;inset:0;opacity:.25;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><circle cx="8" cy="8" r="2" fill="white" opacity=".35"/></svg>')}
   .hero-content{position:relative;z-index:1}
   h1{font-size:3rem;font-weight:800;letter-spacing:-.02em}
   .subtitle{margin-top:8px;font-size:1.2rem;opacity:.95}
@@ -48,19 +44,12 @@
   .meta{color:var(--muted-2);font-weight:600;font-size:.92rem;margin-top:6px}
 
   .preview{padding:18px 22px 22px}
-  .section{
-    margin-top:12px
-  }
+  .section{margin-top:12px}
   .section h4{font-size:.98rem;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:6px}
-  .section p{
-    color:var(--muted);font-size:.96rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
-  }
+  .section p{color:var(--muted);font-size:.96rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
   /* Hover veil with Show More button */
-  .veil{
-    position:absolute;inset:0;background:rgba(148,163,184,.08); /* grey transparent */
-    opacity:0;transition:opacity .2s ease;display:flex;align-items:end;justify-content:center;padding:16px
-  }
+  .veil{position:absolute;inset:0;background:rgba(148,163,184,.08);opacity:0;transition:opacity .2s ease;display:flex;align-items:end;justify-content:center;padding:16px}
   .card:hover .veil{opacity:1}
   .showmore{
     border:1px solid var(--border);background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(8px);
@@ -70,27 +59,32 @@
   .showmore:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(2,8,23,.16)}
 
   /* ===== Fullscreen modal (floating window) ===== */
-  .modal{
-    position:fixed;inset:0;background:rgba(2,8,23,.82);
-    display:none;z-index:9999
-  }
+  .modal{position:fixed;inset:0;background:rgba(2,8,23,.82);display:none;z-index:9999}
   .modal[open]{display:block}
   .modal-wrap{
     position:relative;max-width:1100px;height:92vh;margin:4vh auto;background:#fff;border-radius:18px;overflow:hidden;
     display:grid;grid-template-columns:1fr 1.1fr
   }
-  .close{
-    position:absolute;top:14px;right:16px;border:0;background:rgba(15,23,42,.06);backdrop-filter:blur(6px);color:#0f172a;
-    font-size:28px;width:44px;height:44px;border-radius:12px;cursor:pointer;z-index:2
-  }
+  .close{position:absolute;top:14px;right:16px;border:0;background:rgba(15,23,42,.06);backdrop-filter:blur(6px);color:#0f172a;font-size:28px;width:44px;height:44px;border-radius:12px;cursor:pointer;z-index:3}
   .close:hover{background:rgba(15,23,42,.12)}
-  .media{
-    background:#0b1220;display:flex;align-items:center;justify-content:center;overflow:hidden
+
+  /* MEDIA (left) */
+  .media{background:#0b1220;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .media video{max-width:100%;max-height:100%;object-fit:contain}
+  /* Pan-Zoom viewport for images */
+  .pz-viewport{width:100%;height:100%;overflow:hidden;touch-action:none;cursor:grab}
+  .pz-viewport.grabbing{cursor:grabbing}
+  .pz-content{transform-origin:0 0;will-change:transform}
+  .pz-controls{
+    position:absolute;bottom:12px;left:12px;display:flex;gap:8px;z-index:2
   }
-  .media img,.media video{max-width:100%;max-height:100%;object-fit:contain}
-  .body{
-    padding:26px 26px 20px;overflow:auto
+  .pz-btn{
+    border:1px solid rgba(255,255,255,.3);color:#fff;background:rgba(0,0,0,.35);
+    padding:8px 10px;border-radius:10px;font-weight:700;backdrop-filter:blur(4px);cursor:pointer
   }
+
+  /* BODY (right) */
+  .body{padding:26px 26px 20px;overflow:auto}
   .badge{display:inline-flex;gap:10px;align-items:center;font-size:.9rem;color:#475569}
   .badge .dot{width:8px;height:8px;border-radius:999px;background:var(--accent)}
   .modal h2{font-size:1.8rem;line-height:1.2;margin:6px 0 4px}
@@ -104,7 +98,7 @@
   /* Responsive */
   @media (max-width: 980px){
     .modal-wrap{grid-template-columns:1fr;height:auto;max-height:none;margin:0;min-height:100vh;border-radius:0}
-    .media{height:40vh}
+    .media{height:45vh}
   }
 </style>
 </head>
@@ -126,7 +120,7 @@
         <div class="accent"></div>
         <div class="head">
           <div class="title">Complex Form Data Parser &amp; CRM Integration</div>
-          <div class="meta">Plumbing &amp; Heating Industry • September 2025</div>
+          <div class="meta">Plumbing & Heating Industry • September 2025</div>
         </div>
         <div class="preview">
           <div class="section">
@@ -135,7 +129,7 @@
           </div>
           <div class="section">
             <h4>💡 The Solution</h4>
-            <p>Make.com flow with Claude.ai JSON parsing, Text Parser to split address &amp; names, Router filters for conditional logic, then formatted GoHighLevel contact creation and instant source-attributed alerts.</p>
+            <p>Make.com flow with Claude.ai JSON parsing, Text Parser to split address & names, Router filters for conditional logic, then formatted GoHighLevel contact creation and instant source-attributed alerts.</p>
           </div>
         </div>
         <div class="veil"><button class="showmore" data-open="gbp" type="button">Show more</button></div>
@@ -197,7 +191,7 @@
         <div class="accent"></div>
         <div class="head">
           <div class="title">HubSpot Internal Operational Workflow Automation</div>
-          <div class="meta">Renewable Energy — Solar &amp; Battery Storage • 2024</div>
+          <div class="meta">Renewable Energy — Solar & Battery Storage • 2024</div>
         </div>
         <div class="preview">
           <div class="section">
@@ -231,7 +225,7 @@
         <div class="accent"></div>
         <div class="head">
           <div class="title">Insurance Claim Automation Workflow &amp; CRM Integration</div>
-          <div class="meta">Property &amp; Insurance Industry • September 2025</div>
+          <div class="meta">Property & Insurance Industry • September 2025</div>
         </div>
         <div class="preview">
           <div class="section">
@@ -267,70 +261,79 @@
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
     <div class="modal-wrap">
       <button class="close" id="modal-close" aria-label="Close">×</button>
-      <div class="media" id="modal-media" aria-hidden="true"></div>
+
+      <!-- MEDIA (image or video goes here) -->
+      <div class="media" id="modal-media"></div>
+
+      <!-- BODY -->
       <div class="body">
         <div class="badge"><span class="dot"></span><span id="modal-meta" class="meta"></span></div>
         <h2 id="modal-title"></h2>
-        <div id="modal-desc">
-          <!-- sections injected -->
-        </div>
+        <div id="modal-desc"></div>
       </div>
     </div>
   </div>
 
 <script>
-  // Helpers
+  // Shorthands
   const $ = (s,root=document)=>root.querySelector(s);
   const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
 
-  // Modal elements
+  // ===== Modal logic =====
   const modal = $('#modal');
   const modalMedia = $('#modal-media');
   const modalTitle = $('#modal-title');
-  const modalMeta = $('#modal-meta');
-  const modalDesc = $('#modal-desc');
+  const modalMeta  = $('#modal-meta');
+  const modalDesc  = $('#modal-desc');
   const modalClose = $('#modal-close');
   let lastFocus = null;
 
   function openModal(data){
-    // Media
+    // Clean
     modalMedia.innerHTML = '';
-    if(data.media?.type === 'video'){
-      const v = document.createElement('video');
-      v.src = data.media.src;
-      v.controls = true; v.autoplay = true; v.playsInline = true;
-      v.setAttribute('aria-label', data.media.alt || 'Project video');
-      modalMedia.appendChild(v);
-    } else if (data.media?.type === 'image'){
-      const i = document.createElement('img');
-      i.src = data.media.src; i.alt = data.media.alt || '';
-      modalMedia.appendChild(i);
-    }
-
-    // Title / meta
     modalTitle.textContent = data.title || '';
-    modalMeta.textContent = data.meta || '';
+    modalMeta.textContent  = data.meta || '';
+    modalDesc.innerHTML = '';
 
     // Sections
-    modalDesc.innerHTML = '';
     (data.sections || []).forEach(sec=>{
       const wrap = document.createElement('section');
       wrap.className = 'msection';
-      if(sec.h){
-        const h = document.createElement('h3'); h.textContent = sec.h; wrap.appendChild(h);
-      }
-      if(sec.p){
-        const p = document.createElement('p'); p.textContent = sec.p; wrap.appendChild(p);
-      }
+      if(sec.h){ const h=document.createElement('h3'); h.textContent=sec.h; wrap.appendChild(h); }
+      if(sec.p){ const p=document.createElement('p'); p.textContent=sec.p; wrap.appendChild(p); }
       if(sec.chips){
-        const row = document.createElement('div'); row.className='tech';
-        sec.chips.forEach(c=>{
-          const chip = document.createElement('span'); chip.className='chip'; chip.textContent=c; row.appendChild(chip);
-        });
+        const row=document.createElement('div'); row.className='tech';
+        sec.chips.forEach(c=>{ const chip=document.createElement('span'); chip.className='chip'; chip.textContent=c; row.appendChild(chip); });
         wrap.appendChild(row);
       }
       modalDesc.appendChild(wrap);
     });
+
+    // Media
+    if(data.media?.type === 'video'){
+      const v=document.createElement('video');
+      v.src=data.media.src; v.controls=true; v.autoplay=true; v.playsInline=true;
+      v.setAttribute('aria-label',data.media.alt||'Project video');
+      modalMedia.appendChild(v);
+    } else if (data.media?.type === 'image'){
+      // Pan–zoom container
+      const vp=document.createElement('div'); vp.className='pz-viewport';
+      const content=document.createElement('div'); content.className='pz-content';
+      const img=document.createElement('img'); img.src=data.media.src; img.alt=data.media.alt||'';
+      content.appendChild(img); vp.appendChild(content);
+      modalMedia.appendChild(vp);
+
+      // Controls
+      const ctr=document.createElement('div'); ctr.className='pz-controls';
+      const bPlus=document.createElement('button'); bPlus.className='pz-btn'; bPlus.textContent='+';
+      const bMinus=document.createElement('button'); bMinus.className='pz-btn'; bMinus.textContent='–';
+      const bReset=document.createElement('button'); bReset.className='pz-btn'; bReset.textContent='Reset';
+      ctr.appendChild(bPlus); ctr.appendChild(bMinus); ctr.appendChild(bReset);
+      modalMedia.appendChild(ctr);
+
+      // Init pan-zoom
+      initPanZoom(vp, content, {plus:bPlus, minus:bMinus, reset:bReset});
+    }
 
     lastFocus = document.activeElement;
     modal.setAttribute('open','');
@@ -342,13 +345,12 @@
     modal.removeAttribute('open');
     document.body.style.overflow = '';
     if(lastFocus) lastFocus.focus();
-    // Pause any playing video
     const v = modalMedia.querySelector('video');
     if(v){ try{ v.pause(); }catch(e){} }
   }
 
   modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+  // Don't close on backdrop click to avoid accidental exits while panning.
   document.addEventListener('keydown', (e)=>{
     if(e.key==='Escape' && modal.hasAttribute('open')){ e.preventDefault(); closeModal(); }
   });
@@ -360,16 +362,95 @@
         const id = btn.getAttribute('data-open');
         const card = btn.closest('.card');
         const tpl = card.querySelector(`#tpl-${id}`);
-        if(!tpl){ return; }
-        try{
-          const json = JSON.parse(tpl.innerHTML.trim());
-          openModal(json);
-        }catch(err){
-          console.error('Template parse error', err);
-        }
+        if(!tpl) return;
+        try{ const data = JSON.parse(tpl.innerHTML.trim()); openModal(data); }
+        catch(err){ console.error('Template parse error', err); }
       });
     });
   });
+
+  // ===== Pan & Zoom for images =====
+  function initPanZoom(viewport, content, controls){
+    let scale = 1, minScale = 1, maxScale = 6;
+    let originX = 0, originY = 0; // top-left of image within viewport
+    let startX = 0, startY = 0, isDragging = false;
+
+    function apply(){
+      content.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
+    }
+    function clamp(){
+      // image natural size unknown; just avoid infinite panning by bounding with viewport size * scale
+      const rect = viewport.getBoundingClientRect();
+      const imgRect = content.firstElementChild.getBoundingClientRect(); // after transform (approx.)
+      // Soft clamps (leave some freedom)
+      const pad = 80;
+      originX = Math.max(originX, -rect.width*scale - pad);
+      originX = Math.min(originX, rect.width + pad);
+      originY = Math.max(originY, -rect.height*scale - pad);
+      originY = Math.min(originY, rect.height + pad);
+    }
+    function zoomAt(cx, cy, dz){
+      const prev = scale;
+      scale = Math.min(maxScale, Math.max(minScale, scale * dz));
+      // Keep the point under cursor stationary
+      const dx = cx - originX;
+      const dy = cy - originY;
+      originX -= (dx/prev - dx/scale);
+      originY -= (dy/prev - dy/scale);
+      clamp(); apply();
+    }
+    function reset(){ scale = 1; originX = 0; originY = 0; apply(); }
+
+    // Wheel zoom
+    viewport.addEventListener('wheel', (e)=>{
+      e.preventDefault();
+      const rect = viewport.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      const dz = e.deltaY < 0 ? 1.15 : 1/1.15;
+      zoomAt(cx, cy, dz);
+    }, {passive:false});
+
+    // Drag to pan
+    viewport.addEventListener('pointerdown', (e)=>{
+      isDragging = true;
+      startX = e.clientX - originX;
+      startY = e.clientY - originY;
+      viewport.setPointerCapture(e.pointerId);
+      viewport.classList.add('grabbing');
+    });
+    viewport.addEventListener('pointermove', (e)=>{
+      if(!isDragging) return;
+      originX = e.clientX - startX;
+      originY = e.clientY - startY;
+      clamp(); apply();
+    });
+    viewport.addEventListener('pointerup', (e)=>{
+      isDragging = false;
+      viewport.releasePointerCapture(e.pointerId);
+      viewport.classList.remove('grabbing');
+    });
+    viewport.addEventListener('pointerleave', ()=>{ isDragging = false; viewport.classList.remove('grabbing'); });
+
+    // Double click reset
+    viewport.addEventListener('dblclick', (e)=>{
+      e.preventDefault(); reset();
+    });
+
+    // Controls
+    controls.plus.addEventListener('click', ()=>{
+      const rect = viewport.getBoundingClientRect();
+      zoomAt(rect.width/2, rect.height/2, 1.15);
+    });
+    controls.minus.addEventListener('click', ()=>{
+      const rect = viewport.getBoundingClientRect();
+      zoomAt(rect.width/2, rect.height/2, 1/1.15);
+    });
+    controls.reset.addEventListener('click', reset);
+
+    // Initial
+    apply();
+  }
 </script>
 </body>
 </html>
