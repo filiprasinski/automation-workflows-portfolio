@@ -1,657 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filip Rasinski - Automation & Workflow Specialist</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background: #f7fafc;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            text-align: center;
-            padding: 100px 20px 80px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-        }
-        
-        .subtitle {
-            font-size: 1.6rem;
-            margin-bottom: 25px;
-            font-weight: 500;
-            opacity: 0.95;
-        }
-        
-        .bio {
-            max-width: 700px;
-            margin: 0 auto 35px;
-            font-size: 1.15rem;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 35px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 2px solid white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.25);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: -50px auto 0;
-            padding: 0 20px 80px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #2d3748;
-            margin-bottom: 50px;
-            margin-top: 80px;
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 35px;
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-        }
-        
-        .project-accent {
-            height: 6px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .project-card:nth-child(2) .project-accent {
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .project-card:nth-child(3) .project-accent {
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .project-card:nth-child(4) .project-accent {
-            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-        }
-        
-        .project-header {
-            padding: 35px 35px 25px;
-        }
-        
-        .project-header h2 {
-            font-size: 1.8rem;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .project-meta {
-            color: #718096;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 320px;
-            background: #f7fafc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-            overflow: hidden;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .project-image img:hover {
-            transform: scale(1.02);
-        }
-        
-        /* Lightbox Modal Styles */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            animation: fadeIn 0.3s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .lightbox-content {
-            position: relative;
-            margin: auto;
-            padding: 20px;
-            width: 95%;
-            max-width: 1400px;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .lightbox-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: white;
-            font-size: 45px;
-            font-weight: 300;
-            cursor: pointer;
-            z-index: 10000;
-            transition: transform 0.2s;
-            line-height: 1;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lightbox-close:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .lightbox-caption {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.1rem;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lightbox-hint {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 0.9rem;
-            background: rgba(102, 126, 234, 0.9);
-            padding: 10px 20px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .project-content {
-            padding: 35px;
-        }
-        
-        .info-section {
-            margin-bottom: 28px;
-        }
-        
-        .info-section h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #2d3748;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .icon {
-            font-size: 1.3rem;
-        }
-        
-        .info-section p {
-            color: #4a5568;
-            line-height: 1.8;
-            font-size: 0.98rem;
-        }
-        
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        
-        .tech-tag {
-            padding: 8px 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-        
-        .project-card:nth-child(2) .tech-tag {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
-        }
-        
-        .project-card:nth-child(3) .tech-tag {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
-        }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 12px;
-        }
-        
-        .result-box {
-            background: #f7fafc;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: center;
-            border: 2px solid #e2e8f0;
-        }
-        
-        .result-value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-        
-        .project-card:nth-child(2) .result-value {
-            color: #f5576c;
-        }
-        
-        .project-card:nth-child(3) .result-value {
-            color: #0066cc;
-        }
-        
-        .result-label {
-            font-size: 0.85rem;
-            color: #718096;
-            font-weight: 600;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Filip Rasinski - Automation & Workflow Specialist</title>
+  <meta name="description" content="CRM & Automation specialist building intelligent workflows that eliminate manual work across marketing, sales, and operations.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="canonical" href="https://<your-gh-username>.github.io/<repo>/">
+  <meta property="og:title" content="Filip Rasinski — Automation & Workflow Specialist">
+  <meta property="og:description" content="Building intelligent automation that drives measurable results.">
+  <meta property="og:image" content="https://<your-domain-or-gh-pages>/images/og-cover.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --ink: #2d3748;
+      --muted: #4a5568;
+      --muted-2: #718096;
+      --brand-1: #667eea;
+      --brand-2: #764ba2;
+      --card-border: #e2e8f0;
+      --shadow-1: rgba(0,0,0,0.08);
+      --shadow-2: rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    a { color: inherit; }
+
+    header.hero {
+      background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
+      text-align: center;
+      padding: 100px 20px 80px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .bio {
+      max-width: 700px;
+      margin: 0 auto 35px;
+      font-size: 1.15rem;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 35px;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--brand-1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid white;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+    main .container {
+      max-width: 1200px;
+      margin: -50px auto 0;
+      padding: 0 20px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 50px;
+      margin-top: 80px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px var(--shadow-1);
+      transition: all 0.3s;
+      border: 1px solid var(--card-border);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px var(--shadow-2);
+    }
+
+    .project-accent {
+      height: 6px;
+      background: linear-gradient(90deg, var(--brand-1) 0%, var(--brand-2) 100%);
+    }
+    .project-card:nth-child(2) .project-accent {
+      background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+    }
+    .project-card:nth-child(3) .project-accent {
+      background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    }
+    .project-card:nth-child(4) .project-accent {
+      background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
+    }
+    .project-card:nth-child(5) .project-accent {
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .project-header { padding: 35px 35px 25px; }
+    .project-header h2 {
+      font-size: 1.8rem;
+      color: var(--ink);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .project-meta { color: var(--muted-2); font-size: .95rem; font-weight: 500; }
+
+    .project-image {
+      width: 100%;
+      height: 320px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+
+    /* Image thumbs */
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s;
+      display: block;
+    }
+    .project-image img:hover { transform: scale(1.02); }
+
+    /* Video thumb button with play overlay */
+    .project-media {
+      position: relative;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s;
+      display: block;
+    }
+    .project-media:hover img { transform: scale(1.02); }
+
+    .play-badge {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+      line-height: 1;
+      color: white;
+      text-shadow: 0 8px 30px rgba(0,0,0,.35);
+      pointer-events: none;
+    }
+    .play-badge::before {
+      content: "";
+      position: absolute;
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 8px 30px rgba(0,0,0,.35);
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      animation: fadeIn 0.3s;
+      cursor: zoom-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox-content {
+      position: relative;
+      margin: auto;
+      padding: 20px;
+      width: 95%;
+      max-width: 1400px;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      outline: none;
+    }
+    .lightbox-image,
+    .lightbox-video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+      background: black;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 40px;
+      color: white;
+      font-size: 45px;
+      font-weight: 300;
+      cursor: pointer;
+      z-index: 10000;
+      transition: transform 0.2s;
+      line-height: 1;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      border: 0;
+    }
+    .lightbox-close:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.05rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 20px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    .lightbox-hint {
+      position: absolute;
+      top: 30px; left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 0.9rem;
+      background: rgba(102, 126, 234, 0.9);
+      padding: 10px 20px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-content { padding: 35px; }
+    .info-section { margin-bottom: 28px; }
+    .info-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .icon { font-size: 1.3rem; }
+    .info-section p { color: var(--muted); line-height: 1.8; font-size: .98rem; }
+
+    .tech-tags {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+    }
+    .tech-tag {
+      padding: 8px 18px;
+      background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
+      color: white; border-radius: 20px;
+      font-size: .88rem; font-weight: 600;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    .project-card:nth-child(3) .tech-tag {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+    }
+    .project-card:nth-child(4) .tech-tag {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px; margin-top: 12px;
+    }
+    .result-box {
+      background: var(--bg);
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--card-border);
+    }
+    .result-value { font-size: 1.6rem; font-weight: 800; color: var(--brand-1); margin-bottom: 5px; }
+    .project-card:nth-child(3) .result-value { color: #f5576c; }
+    .project-card:nth-child(4) .result-value { color: #0066cc; }
+    .result-label { font-size: .85rem; color: var(--muted-2); font-weight: 600; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+    }
+  </style>
 </head>
 <body>
-    <div class="hero">
-        <div class="hero-content">
-            <h1>Filip Rasinski</h1>
-            <div class="subtitle">CRM & Automation Workflow Specialist</div>
-            <p class="bio">Building intelligent automation solutions that eliminate manual work and drive measurable results across marketing, sales, and operations.</p>
-            <div class="cta-buttons">
-                <a href="mailto:rasinski.filip@gmail.com" class="btn btn-primary">📧 rasinski.filip@gmail.com</a>
-                <a href="https://www.linkedin.com/in/filiprasinski" target="_blank" class="btn btn-secondary">💼 View LinkedIn</a>
-                <a href="tel:+447599052844" class="btn btn-secondary">📱 +44 7599 052844</a>
-            </div>
-        </div>
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Filip Rasinski</h1>
+      <div class="subtitle">CRM &amp; Automation Workflow Specialist</div>
+      <p class="bio">Building intelligent automation solutions that eliminate manual work and drive measurable results across marketing, sales, and operations.</p>
+      <div class="cta-buttons">
+        <a href="mailto:rasinski.filip@gmail.com" class="btn btn-primary">📧 rasinski.filip@gmail.com</a>
+        <a href="https://www.linkedin.com/in/filiprasinski" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">💼 View LinkedIn</a>
+        <a href="tel:+447599052844" class="btn btn-secondary">📱 +44 7599 052844</a>
+      </div>
     </div>
+  </header>
 
+  <main>
     <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
-        
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-accent"></div>
-                <div class="project-header">
-                    <h2>Complex Form Data Parser & CRM Integration</h2>
-                    <div class="project-meta">Plumbing & Heating Industry • September 2025</div>
-                </div>
-                
-                <div class="project-image">
-                    <img src="images/workflow-ghl-gbplumbing.png" alt="Make.com Workflow - Formidable Forms to GoHighLevel">
-                </div>
-                
-                <div class="project-content">
-                    <div class="info-section">
-                        <h3><span class="icon">🎯</span> The Challenge</h3>
-                        <p>GB Plumbing used an infographic-style Formidable Form on WordPress where data came through webhooks split between values and image codes. The client needed complex address data (received as single-line strings) to be parsed into separate fields (street address, city, postal code) for proper CRM entry. Additionally, the form included conditional questions and special requirements that needed intelligent filtering before entering GoHighLevel CRM.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">💡</span> The Solution</h3>
-                        <p>Built a sophisticated Make.com automation using Claude.ai for JSON parsing logic. Implemented Text Parser modules to intelligently split address data into component fields (street, city, postal code) and separate combined name fields into first and last names. Used Router modules with conditional filtering to process client-specific requirements and answers, ensuring only relevant data flows to GoHighLevel. The workflow automatically creates properly formatted contacts in CRM and sends instant notifications to the company with lead details and source attribution.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">🛠️</span> Technologies Used</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Make.com</span>
-                            <span class="tech-tag">WordPress</span>
-                            <span class="tech-tag">Formidable Forms</span>
-                            <span class="tech-tag">GoHighLevel CRM</span>
-                            <span class="tech-tag">Text Parser</span>
-                            <span class="tech-tag">Router Logic</span>
-                            <span class="tech-tag">JSON</span>
-                            <span class="tech-tag">Webhooks</span>
-                            <span class="tech-tag">Claude.ai</span>
-                        </div>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">📈</span> Results</h3>
-                        <div class="results-grid">
-                            <div class="result-box">
-                                <div class="result-value">100%</div>
-                                <div class="result-label">Automated Data Processing</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">Zero</div>
-                                <div class="result-label">Manual Form Checking</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">Perfect</div>
-                                <div class="result-label">Data Formatting in CRM</div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 20px; font-style: italic; color: #667eea;">Client feedback: "Great gratitude and happiness with the successful automation. As a big automation fan, I no longer need to manually check WordPress Formidable Forms—everything is now nicely sorted inside the CRM."</p>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-accent"></div>
-                <div class="project-header">
-                    <h2>WooCommerce E-Store Integration with CRM</h2>
-                    <div class="project-meta">E-Commerce • September 2025</div>
-                </div>
-                
-                <div class="project-image">
-                    <img src="images/workflow-make.com-grassedartificial.png" alt="Make.com Workflow - WooCommerce to GoHighLevel">
-                </div>
-                
-                <div class="project-content">
-                    <div class="info-section">
-                        <h3><span class="icon">🎯</span> The Challenge</h3>
-                        <p>Grassed Artificial, an e-commerce business, needed their WordPress WooCommerce shop integrated with GoHighLevel CRM. Every time a customer requested a free sample or made a purchase online, the data needed to flow automatically into the CRM with complete order details (products, descriptions, values) and trigger notifications to the business owner. Orders required manual approval in their payment system, so only "processing" status orders needed to be captured.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">💡</span> The Solution</h3>
-                        <p>Built a Make.com automation that monitors WooCommerce for new orders with "Processing" status, sorted by date created. When a new order is detected, the workflow creates a customer contact in GoHighLevel with a custom field capturing the shopping cart value. This contact is then used to automatically generate an opportunity in the "Customers Pipeline - Website Shop" where the opportunity value is extracted from the custom field. The system ensures all product information, descriptions, and order details flow seamlessly into the CRM while notifying the client of each new order.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">🛠️</span> Technologies Used</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Make.com</span>
-                            <span class="tech-tag">WooCommerce</span>
-                            <span class="tech-tag">WordPress</span>
-                            <span class="tech-tag">GoHighLevel CRM</span>
-                            <span class="tech-tag">Custom Fields</span>
-                            <span class="tech-tag">Pipeline Automation</span>
-                            <span class="tech-tag">Order Monitoring</span>
-                        </div>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">📈</span> Results</h3>
-                        <div class="results-grid">
-                            <div class="result-box">
-                                <div class="result-value">100%</div>
-                                <div class="result-label">Order Tracking</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">Real-time</div>
-                                <div class="result-label">CRM Updates</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">Complete</div>
-                                <div class="result-label">Data Integration</div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 20px; font-style: italic; color: #f5576c;">Client feedback: "Peace of mind knowing every order is automatically tracked. Very satisfied with the seamless integration."</p>
-                    </div>
-                </div>
+      <h2 class="section-title">Featured Projects</h2>
+
+      <div class="projects-grid">
+        <!-- 1) Complex Form Data Parser & CRM Integration (GB Plumbing) -->
+        <div class="project-card">
+          <div class="project-accent"></div>
+          <div class="project-header">
+            <h2>Complex Form Data Parser &amp; CRM Integration</h2>
+            <div class="project-meta">Plumbing &amp; Heating Industry • September 2025</div>
+          </div>
+
+          <div class="project-image">
+            <img src="images/workflow-ghl-gbplumbing.png"
+                 alt="Make.com Workflow - Formidable Forms to GoHighLevel"
+                 width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+
+          <div class="project-content">
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🎯</span> The Challenge</h3>
+              <p>GB Plumbing used an infographic-style Formidable Form on WordPress where data came through webhooks split between values and image codes. The client needed complex address data (received as single-line strings) to be parsed into separate fields (street address, city, postal code) for proper CRM entry. Additionally, the form included conditional questions and special requirements that needed intelligent filtering before entering GoHighLevel CRM.</p>
             </div>
 
-            <div class="project-card">
-                <div class="project-accent"></div>
-                <div class="project-header">
-                    <h2>HubSpot Internal Operational Workflow Automation</h2>
-                    <div class="project-meta">Renewable Energy - Solar & Battery Storage • 2024</div>
-                </div>
-                
-                <div class="project-image">
-                    <img src="images/workflow-hubspot-ceiba.png" alt="HubSpot Workflow - Ceiba Renewables Operational Pipeline">
-                </div>
-                
-                <div class="project-content">
-                    <div class="info-section">
-                        <h3><span class="icon">🎯</span> The Challenge</h3>
-                        <p>Ceiba Renewables' solar consultants spent countless hours manually chasing clients for property details and G99/G98 documentation (UK technical requirements for generators connecting to the electricity network). Operations managers manually created Microsoft Teams channels for each won deal, tracked pipeline stages, monitored client suspensions due to unforeseen circumstances, and created reminders for SIMPRO project reviews and quotes. The manual workflow created bottlenecks, missed follow-ups, and prevented strategic planning time.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">💡</span> The Solution</h3>
-                        <p>Designed and implemented a comprehensive HubSpot workflow automating the entire operational pipeline. The system automatically sends templated emails to new leads explaining G99/G98 requirements and data collection instructions. It creates internal notifications tracking lead progress through the operational pipeline, automatically provisions Microsoft Teams channels in designated sections for each project, and generates SIMPRO-related tasks for Operations Managers and Solar Consultants with built-in reminders. The workflow incorporates intelligent branching logic: if the Solar Consultant completes the custom G99/G98 field, it triggers the appropriate documentation email template to customers and creates chase tasks with reminders; if documentation is marked as N/A, the workflow bypasses this stage and advances directly to Site Survey. Throughout the process, the system automatically updates pipeline stages and monitors for client suspension flags.</p>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">🛠️</span> Technologies Used</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">HubSpot Workflows</span>
-                            <span class="tech-tag">Custom Properties</span>
-                            <span class="tech-tag">Branching Logic</span>
-                            <span class="tech-tag">Email Templates</span>
-                            <span class="tech-tag">Microsoft Teams Integration</span>
-                            <span class="tech-tag">Task Automation</span>
-                            <span class="tech-tag">Pipeline Management</span>
-                            <span class="tech-tag">SIMPRO Integration</span>
-                        </div>
-                    </div>
-                    
-                    <div class="info-section">
-                        <h3><span class="icon">📈</span> Results</h3>
-                        <div class="results-grid">
-                            <div class="result-box">
-                                <div class="result-value">Massive</div>
-                                <div class="result-label">Time Savings Across Team</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">100%</div>
-                                <div class="result-label">Task & Reminder Automation</div>
-                            </div>
-                            <div class="result-box">
-                                <div class="result-value">Zero</div>
-                                <div class="result-label">Manual Pipeline Updates</div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 20px; font-style: italic; color: #0066cc;">Impact: Solar consultants and operations managers reclaimed significant time previously spent on manual processes. Automated tasks and reminders improved team efficiency and accountability. Solar consultants gained capacity for strategic product planning instead of last-minute rushes.</p>
-                    </div>
-                </div>
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">💡</span> The Solution</h3>
+              <p>Built a sophisticated Make.com automation using Claude.ai for JSON parsing logic. Implemented Text Parser modules to intelligently split address data into component fields (street, city, postal code) and separate combined name fields into first and last names. Used Router modules with conditional filtering to process client-specific requirements and answers, ensuring only relevant data flows to GoHighLevel. The workflow automatically creates properly formatted contacts in CRM and sends instant notifications to the company with lead details and source attribution.</p>
             </div>
 
-            <div class="project-card" style="opacity: 0.7;">
-                <div class="project-accent"></div>
-                <div class="project-header">
-                    <h2>More Projects Coming Soon...</h2>
-                    <div class="project-meta">AI Automation • Lifecycle Marketing • SMS Workflows</div>
-                </div>
-                
-                <div class="project-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; font-size: 3rem;">
-                    🚀
-                </div>
-                
-                <div class="project-content">
-                    <div class="info-section">
-                        <p style="text-align: center; font-size: 1.1rem; color: #4a5568;">I'm constantly building new automation solutions. Check back soon for more projects including AI chat assistants, multi-channel marketing campaigns, and advanced CRM integrations!</p>
-                    </div>
-                </div>
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🛠️</span> Technologies Used</h3>
+              <div class="tech-tags">
+                <span class="tech-tag">Make.com</span>
+                <span class="tech-tag">WordPress</span>
+                <span class="tech-tag">Formidable Forms</span>
+                <span class="tech-tag">GoHighLevel CRM</span>
+                <span class="tech-tag">Text Parser</span>
+                <span class="tech-tag">Router Logic</span>
+                <span class="tech-tag">JSON</span>
+                <span class="tech-tag">Webhooks</span>
+                <span class="tech-tag">Claude.ai</span>
+              </div>
             </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">📈</span> Results</h3>
+              <div class="results-grid">
+                <div class="result-box">
+                  <div class="result-value">100%</div>
+                  <div class="result-label">Automated Data Processing</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Zero</div>
+                  <div class="result-label">Manual Form Checking</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Perfect</div>
+                  <div class="result-label">Data Formatting in CRM</div>
+                </div>
+              </div>
+              <p style="margin-top: 20px; font-style: italic; color: #667eea;">Client feedback: "Great gratitude and happiness with the successful automation. As a big automation fan, I no longer need to manually check WordPress Formidable Forms—everything is now nicely sorted inside the CRM."</p>
+            </div>
+          </div>
         </div>
-    </div>
-    
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-hint">💡 Click anywhere or press ESC to close • Scroll to zoom</div>
-        <div class="lightbox-content">
-            <img id="lightbox-img" class="lightbox-image" src="" alt="">
+
+        <!-- 2) WooCommerce E-Store Integration -->
+        <div class="project-card">
+          <div class="project-accent"></div>
+          <div class="project-header">
+            <h2>WooCommerce E-Store Integration with CRM</h2>
+            <div class="project-meta">E-Commerce • September 2025</div>
+          </div>
+
+          <div class="project-image">
+            <img src="images/workflow-make.com-grassedartificial.png"
+                 alt="Make.com Workflow - WooCommerce to GoHighLevel"
+                 width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+
+          <div class="project-content">
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🎯</span> The Challenge</h3>
+              <p>Grassed Artificial, an e-commerce business, needed their WordPress WooCommerce shop integrated with GoHighLevel CRM. Every time a customer requested a free sample or made a purchase online, the data needed to flow automatically into the CRM with complete order details (products, descriptions, values) and trigger notifications to the business owner. Orders required manual approval in their payment system, so only "processing" status orders needed to be captured.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">💡</span> The Solution</h3>
+              <p>Built a Make.com automation that monitors WooCommerce for new orders with "Processing" status, sorted by date created. When a new order is detected, the workflow creates a customer contact in GoHighLevel with a custom field capturing the shopping cart value. This contact is then used to automatically generate an opportunity in the "Customers Pipeline - Website Shop" where the opportunity value is extracted from the custom field. The system ensures all product information, descriptions, and order details flow seamlessly into the CRM while notifying the client of each new order.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🛠️</span> Technologies Used</h3>
+              <div class="tech-tags">
+                <span class="tech-tag">Make.com</span>
+                <span class="tech-tag">WooCommerce</span>
+                <span class="tech-tag">WordPress</span>
+                <span class="tech-tag">GoHighLevel CRM</span>
+                <span class="tech-tag">Custom Fields</span>
+                <span class="tech-tag">Pipeline Automation</span>
+                <span class="tech-tag">Order Monitoring</span>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">📈</span> Results</h3>
+              <div class="results-grid">
+                <div class="result-box">
+                  <div class="result-value">100%</div>
+                  <div class="result-label">Order Tracking</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Real-time</div>
+                  <div class="result-label">CRM Updates</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Complete</div>
+                  <div class="result-label">Data Integration</div>
+                </div>
+              </div>
+              <p style="margin-top: 20px; font-style: italic; color: #f5576c;">Client feedback: "Peace of mind knowing every order is automatically tracked. Very satisfied with the seamless integration."</p>
+            </div>
+          </div>
         </div>
-        <div id="lightbox-caption" class="lightbox-caption"></div>
+
+        <!-- 3) HubSpot Workflow -->
+        <div class="project-card">
+          <div class="project-accent"></div>
+          <div class="project-header">
+            <h2>HubSpot Internal Operational Workflow Automation</h2>
+            <div class="project-meta">Renewable Energy - Solar &amp; Battery Storage • 2024</div>
+          </div>
+
+          <div class="project-image">
+            <img src="images/workflow-hubspot-ceiba.png"
+                 alt="HubSpot Workflow - Ceiba Renewables Operational Pipeline"
+                 width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+
+          <div class="project-content">
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🎯</span> The Challenge</h3>
+              <p>Ceiba Renewables' solar consultants spent countless hours manually chasing clients for property details and G99/G98 documentation (UK technical requirements for generators connecting to the electricity network). Operations managers manually created Microsoft Teams channels for each won deal, tracked pipeline stages, monitored client suspensions due to unforeseen circumstances, and created reminders for SIMPRO project reviews and quotes. The manual workflow created bottlenecks, missed follow-ups, and prevented strategic planning time.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">💡</span> The Solution</h3>
+              <p>Designed and implemented a comprehensive HubSpot workflow automating the entire operational pipeline. The system automatically sends templated emails to new leads explaining G99/G98 requirements and data collection instructions. It creates internal notifications tracking lead progress through the operational pipeline, automatically provisions Microsoft Teams channels in designated sections for each project, and generates SIMPRO-related tasks for Operations Managers and Solar Consultants with built-in reminders. The workflow incorporates intelligent branching logic: if the Solar Consultant completes the custom G99/G98 field, it triggers the appropriate documentation email template to customers and creates chase tasks with reminders; if documentation is marked as N/A, the workflow bypasses this stage and advances directly to Site Survey. Throughout the process, the system automatically updates pipeline stages and monitors for client suspension flags.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🛠️</span> Technologies Used</h3>
+              <div class="tech-tags">
+                <span class="tech-tag">HubSpot Workflows</span>
+                <span class="tech-tag">Custom Properties</span>
+                <span class="tech-tag">Branching Logic</span>
+                <span class="tech-tag">Email Templates</span>
+                <span class="tech-tag">Microsoft Teams Integration</span>
+                <span class="tech-tag">Task Automation</span>
+                <span class="tech-tag">Pipeline Management</span>
+                <span class="tech-tag">SIMPRO Integration</span>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">📈</span> Results</h3>
+              <div class="results-grid">
+                <div class="result-box">
+                  <div class="result-value">Massive</div>
+                  <div class="result-label">Time Savings Across Team</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">100%</div>
+                  <div class="result-label">Task &amp; Reminder Automation</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Zero</div>
+                  <div class="result-label">Manual Pipeline Updates</div>
+                </div>
+              </div>
+              <p style="margin-top: 20px; font-style: italic; color: #0066cc;">Impact: Solar consultants and operations managers reclaimed significant time previously spent on manual processes. Automated tasks and reminders improved team efficiency and accountability. Solar consultants gained capacity for strategic product planning instead of last-minute rushes.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4) NEW: Prolink Insurance Claim Automation (video lightbox) -->
+        <div class="project-card">
+          <div class="project-accent" style="background:linear-gradient(90deg,#ff7e5f 0%, #feb47b 100%);"></div>
+          <div class="project-header">
+            <h2>Insurance Claim Automation Workflow &amp; CRM Integration</h2>
+            <div class="project-meta">Property &amp; Insurance Industry • September 2025</div>
+          </div>
+
+          <div class="project-image">
+            <button class="project-media"
+                    type="button"
+                    aria-label="Play case study video"
+                    data-media="video"
+                    data-src="Prolink Group - Log A Claim form.mp4"
+                    data-caption="Prolink Group — Log A Claim digital journey (video)">
+              <img src="images/Log a Claim form - ProLink Group.png"
+                   alt="Prolink Group — Log A Claim form UI"
+                   width="1600" height="900" loading="lazy" decoding="async">
+              <span class="play-badge" aria-hidden="true">►</span>
+            </button>
+          </div>
+
+          <div class="project-content">
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">💥</span> The Challenge</h3>
+              <p>Prolink’s insurance claim submission process was entirely manual, requiring repeated email follow-ups, inconsistent client responses, and missing information for insurers. Each claim type — Private Homeowners, Landlords, and Commercial Policyholders — required a unique 16-question form with tailored data fields such as policy number, claim details, date of loss, and supporting documents.</p>
+              <p>The complexity deepened when clients needed to be filtered by Customer Type, triggering different questions depending on their role (Policyholder, Broker, or Business). Manually sending reminders, assigning claim handlers, and ensuring forms were completed on time created significant administrative pressure and delays in submitting claims to insurers. Prolink needed an end-to-end automated workflow that could intelligently detect the customer type, assign the correct journey, send out the right qualifying form, and follow up automatically via SMS and email — all while notifying the internal team of progress.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">⚙️</span> The Solution</h3>
+              <p>Using GoHighLevel CRM, I designed a smart, fully automated claims workflow that activates as soon as a form is submitted on the website. The system identifies the Customer Type, applies dynamic tags, and automatically assigns the contact to the appropriate internal user whose digital signature is embedded in outgoing emails.</p>
+              <p>Customers are then guided through a qualifying SMS sequence such as:
+                <em>“Hi {{contact.first_name}}, here {{location.name}}. To help us assist you best, could you please tell us if you are a homeowner living in a home? Please answer YES or NO.”</em>
+              </p>
+              <p>Based on their reply, the workflow triggers one of three detailed claim forms — Private Homeowner, Landlord, or Commercial Policyholder — each with its own set of 16 qualifying questions. Automated timers track the customer’s response, send reminders after two days, and notify the internal team if action is needed.</p>
+              <p>If a customer replies “HELP”, an instant 3-hour alert notifies the team to provide live assistance. The workflow continues monitoring activity until the form is completed, automatically sending thank-you messages and updating the CRM. Completed form data is used to generate a digital mandate document, ready for e-signature and submission to the insurer with all required details. This automation eliminated manual chasing and ensured every claim followed a clear, tracked digital journey — from intake to insurer submission.</p>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">🧰</span> Technologies Used</h3>
+              <div class="tech-tags">
+                <span class="tech-tag">GoHighLevel CRM</span>
+                <span class="tech-tag">Dynamic Workflows &amp; Tagging</span>
+                <span class="tech-tag">Email &amp; SMS Automations</span>
+                <span class="tech-tag">Conditional Logic &amp; Timers</span>
+                <span class="tech-tag">Document Generation</span>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3><span class="icon" aria-hidden="true">📈</span> Results</h3>
+              <div class="results-grid">
+                <div class="result-box">
+                  <div class="result-value">100%</div>
+                  <div class="result-label">Automated claim intake &amp; tracking</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Zero</div>
+                  <div class="result-label">Manual follow-ups or missed responses</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Real-time</div>
+                  <div class="result-label">Notifications &amp; engagement monitoring</div>
+                </div>
+                <div class="result-box">
+                  <div class="result-value">Significant</div>
+                  <div class="result-label">Reduction in processing time</div>
+                </div>
+              </div>
+              <p style="margin-top:20px;font-style:italic;color:#2d3748">Client feedback: “I wasn’t expecting automation to handle such a complex workflow so seamlessly. I’m blown away and relieved that I’ll never have to manage this process manually again.”</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5) Placeholder / Coming soon -->
+        <div class="project-card" style="opacity: 0.9;">
+          <div class="project-accent"></div>
+          <div class="project-header">
+            <h2>More Projects Coming Soon...</h2>
+            <div class="project-meta">AI Automation • Lifecycle Marketing • SMS Workflows</div>
+          </div>
+          <div class="project-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; font-size: 3rem; display:grid;place-items:center;">
+            🚀
+          </div>
+          <div class="project-content">
+            <div class="info-section">
+              <p style="text-align: center; font-size: 1.1rem; color: #4a5568;">I'm constantly building new automation solutions. Check back soon for more projects including AI chat assistants, multi-channel marketing campaigns, and advanced CRM integrations!</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <script>
-        // Lightbox functionality
-        function openLightbox(imgElement) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const caption = document.getElementById('lightbox-caption');
-            
-            lightbox.style.display = 'block';
-            lightboxImg.src = imgElement.src;
-            caption.textContent = imgElement.alt;
-            
-            // Prevent body scrolling when lightbox is open
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.style.display = 'none';
-            
-            // Restore body scrolling
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Close lightbox with ESC key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeLightbox();
-            }
+  </main>
+
+  <!-- Accessible Lightbox (supports images & video) -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+    <button class="lightbox-close" type="button" aria-label="Close dialog">&times;</button>
+    <div class="lightbox-hint" id="lightbox-hint">💡 Click outside or press ESC to close</div>
+    <div class="lightbox-content" tabindex="-1">
+      <img id="lightbox-img" class="lightbox-image" src="" alt="">
+      <!-- if playing a video, we inject a <video class="lightbox-video"> here -->
+    </div>
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <script defer>
+    // Safely get elements
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const caption     = document.getElementById('lightbox-caption');
+    const content     = document.querySelector('.lightbox-content');
+    const closeBtn    = document.querySelector('.lightbox-close');
+    let previouslyFocused = null;
+
+    function resetLightboxMedia() {
+      // Remove any existing video
+      const existingVideo = content.querySelector('video.lightbox-video');
+      if (existingVideo) { try { existingVideo.pause(); } catch(e) {} existingVideo.remove(); }
+      // Clear image
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    }
+
+    function openLightboxImage(src, altText) {
+      resetLightboxMedia();
+      lightboxImg.src = src;
+      lightboxImg.alt = altText || '';
+      caption.textContent = altText || '';
+      lightbox.style.display = 'block';
+      previouslyFocused = document.activeElement;
+      document.body.style.overflow = 'hidden';
+      content.focus();
+    }
+
+    function openLightboxVideo(src, altText) {
+      resetLightboxMedia();
+      const video = document.createElement('video');
+      video.className = 'lightbox-video';
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('aria-label', altText || 'Video');
+      content.appendChild(video);
+      caption.textContent = altText || '';
+      lightbox.style.display = 'block';
+      previouslyFocused = document.activeElement;
+      document.body.style.overflow = 'hidden';
+      content.focus();
+    }
+
+    function closeLightbox() {
+      resetLightboxMedia();
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      if (previouslyFocused) previouslyFocused.focus();
+    }
+
+    // Overlay click closes (but not content)
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    content.addEventListener('click', (e) => e.stopPropagation());
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // ESC close
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.style.display === 'block') {
+        event.preventDefault();
+        closeLightbox();
+      }
+    });
+
+    // Hook thumbnails and video buttons after DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Image thumbnails not wrapped by .project-media (video)
+      const imageThumbs = document.querySelectorAll('.project-image img');
+      imageThumbs.forEach(img => {
+        if (img.closest('.project-media')) return; // skip video thumbs
+        img.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openLightboxImage(this.src, this.alt);
         });
-        
-        // Add click handlers to all project images
-        document.addEventListener('DOMContentLoaded', function() {
-            const projectImages = document.querySelectorAll('.project-image img');
-            projectImages.forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    openLightbox(this);
-                });
-            });
+      });
+
+      // Video launchers
+      const mediaButtons = document.querySelectorAll('.project-media[data-media="video"]');
+      mediaButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const src = this.getAttribute('data-src');
+          const cap = this.getAttribute('data-caption') || '';
+          if (src) openLightboxVideo(src, cap);
         });
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>
